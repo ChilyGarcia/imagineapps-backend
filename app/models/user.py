@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean
 from app.db.base_class import Base
+from sqlalchemy.orm import relationship
 
 
 class User(Base):
@@ -12,3 +13,4 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     password = Column(String)
     is_active = Column(Boolean, default=True)
+    events = relationship("Event", back_populates="user")

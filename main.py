@@ -1,8 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from app.core import exception_handlers
-from app.routers.items import router as items_router
+from app.db.base import Base
+
 from app.routers.auth import router as auth_router
 from app.routers.user import router as user_router
+from app.routers.events import router as events_router
 
 app = FastAPI(
     title="FastAPI App",
@@ -18,9 +20,10 @@ app = FastAPI(
     },
 )
 
-app.add_exception_handler(HTTPException, exception_handlers.http_exception_handler)
+app.add_exception_handler(HTTPException,
+                          exception_handlers.http_exception_handler)
 app.add_exception_handler(404, exception_handlers.not_found_exception_handler)
 
-app.include_router(items_router, prefix="/items", tags=["items"])
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
 app.include_router(user_router, prefix="/users", tags=["users"])
+app.include_router(events_router, prefix="/events", tags=["events"])
