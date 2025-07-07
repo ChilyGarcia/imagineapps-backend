@@ -1,162 +1,196 @@
-# FastAPI Project
+<div align="center">
 
-## Descripción
+# ImagineApps Backend
 
-Este es un proyecto backend desarrollado con FastAPI, un moderno framework web para construir APIs con Python 3.7+ basado en estándares de OpenAPI.
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.95.0-009688.svg?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Python](https://img.shields.io/badge/Python-3.7+-3776AB.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-1.4.0-red.svg?style=for-the-badge&logo=sqlalchemy)](https://www.sqlalchemy.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-## Características
+A modern, high-performance backend API built with FastAPI and Python.
 
-- Operaciones CRUD completas
-- Autenticación y autorización con JWT
-- Documentación automática (Swagger UI)
-- Validación de datos con Pydantic
-- Estructura modular y escalable
-- ORM con SQLAlchemy
+</div>
 
-## Requisitos
+## 📋 Overview
+
+ImagineApps Backend is a robust REST API service built using FastAPI, a modern, high-performance web framework for building APIs with Python. The project implements industry best practices including comprehensive CRUD operations, JWT authentication, automated documentation, and a scalable architecture.
+
+## ✨ Features
+
+- **Complete CRUD Operations**: Efficient database interactions for all resources
+- **JWT Authentication & Authorization**: Secure API endpoints with role-based access control
+- **Automatic Documentation**: Interactive API documentation with Swagger UI and ReDoc
+- **Data Validation**: Runtime validation with Pydantic models
+- **Modular & Scalable Architecture**: Well-organized codebase for maintainability and growth
+- **ORM Integration**: Database interaction using SQLAlchemy
+- **Comprehensive Testing**: Automated tests with pytest
+- **Docker Support**: Containerization for consistent deployment
+
+## 🔧 Requirements
 
 - Python 3.7+
 - FastAPI
-- Uvicorn (servidor ASGI)
+- Uvicorn (ASGI server)
 - SQLAlchemy (ORM)
 - Pydantic
-- Otras dependencias en `requirements.txt`
+- Additional dependencies in `requirements.txt`
 
-## Instalación
+## 🚀 Installation
 
-1. Clonar el repositorio
+### 1. Clone the repository
 
 ```bash
-git clone <url-del-repositorio>
-cd fast-api
+git clone https://github.com/yourusername/imagineapps-backend.git
+cd imagineapps-backend
 ```
 
-2. Crear un entorno virtual
+### 2. Create a virtual environment
 
 ```bash
 python -m venv venv
 ```
 
-3. Activar el entorno virtual
+### 3. Activate the virtual environment
 
-- En Windows:
-
+**Windows:**
 ```bash
 .\venv\Scripts\activate
 ```
 
-- En macOS/Linux:
-
+**macOS/Linux:**
 ```bash
 source venv/bin/activate
 ```
 
-4. Instalar dependencias
+### 4. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Configuración
+## ⚙️ Configuration
 
-1. Crear un archivo `.env` en la raíz del proyecto con las siguientes variables:
+Create a `.env` file in the project root with the following variables:
 
 ```
 DATABASE_URL=postgresql://user:password@postgresserver/db
-SECRET_KEY=tu_clave_secreta_para_jwt
+SECRET_KEY=your_jwt_secret_key
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
-## Ejecución
+A sample configuration file is provided in `.env.example`.
 
-1. Iniciar el servidor de desarrollo
+## 🏃‍♂️ Running the Application
+
+### Start the development server
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-2. Acceder a la API en [http://localhost:8000](http://localhost:8000)
-3. Documentación Swagger UI en [http://localhost:8000/docs](http://localhost:8000/docs)
-4. Documentación ReDoc en [http://localhost:8000/redoc](http://localhost:8000/redoc)
+- API service: [http://localhost:8000](http://localhost:8000)
+- Swagger UI documentation: [http://localhost:8000/docs](http://localhost:8000/docs)
+- ReDoc documentation: [http://localhost:8000/redoc](http://localhost:8000/redoc)
 
-## Estructura del Proyecto
+## 📁 Project Structure
 
 ```
-fast-api/
+imagineapps-backend/
 │
-├── app/                    # Código principal de la aplicación
-│   ├── api/                # Endpoints de la API
-│   │   ├── dependencies/   # Dependencias para endpoints
-│   │   ├── routes/         # Rutas de la API organizadas por recursos
-│   │   └── api.py          # Router principal de la API
-│   ├── core/               # Configuración central (config, security)
-│   │   ├── config.py       # Configuración de la aplicación
-│   │   └── security.py     # Funciones relacionadas con seguridad
-│   ├── db/                 # Definiciones y configuración de la base de datos
-│   │   ├── base_class.py   # Clase base para modelos
-│   │   └── session.py      # Configuración de la sesión de BD
-│   ├── models/             # Modelos SQLAlchemy
-│   ├── schemas/            # Esquemas Pydantic
-│   ├── crud/               # Operaciones CRUD
-│   └── main.py             # Punto de entrada principal
+├── app/                    # Main application code
+│   ├── api/                # API endpoints
+│   │   ├── dependencies/   # Endpoint dependencies
+│   │   ├── routes/         # API routes organized by resource
+│   │   └── api.py          # Main API router
+│   ├── core/               # Core configuration
+│   │   ├── config.py       # Application settings
+│   │   └── security.py     # Security functions
+│   ├── db/                 # Database definitions
+│   │   ├── base_class.py   # Base model class
+│   │   └── session.py      # DB session configuration
+│   ├── models/             # SQLAlchemy models
+│   ├── schemas/            # Pydantic schemas
+│   ├── crud/               # CRUD operations
+│   └── main.py             # Application entry point
 │
-├── tests/                  # Pruebas
-├── .env                    # Variables de entorno (no commitear)
-├── .gitignore              # Archivos a ignorar por Git
-├── requirements.txt        # Dependencias del proyecto
-└── README.md               # Este archivo
+├── tests/                  # Automated tests
+├── .env                    # Environment variables (do not commit)
+├── .env.example            # Example environment configuration
+├── .gitignore              # Git ignore rules
+├── requirements.txt        # Project dependencies
+├── Dockerfile              # Docker configuration
+└── README.md               # This file
 ```
 
-## Pruebas
+## 🧪 Testing
+
+Run the test suite with:
 
 ```bash
 pytest
 ```
 
-Para ejecutar pruebas con cobertura:
+Run tests with coverage reports:
 
 ```bash
 pytest --cov=app tests/
 ```
 
-## Despliegue
+## 🐳 Deployment
 
-### Docker
+### Using Docker
 
-1. Construir la imagen
-
-```bash
-docker build -t fast-api-app .
-```
-
-2. Ejecutar el contenedor
+#### 1. Build the image
 
 ```bash
-docker run -d -p 8000:8000 --name fastapi-container fast-api-app
+docker build -t imagineapps-backend .
 ```
 
-## Documentación API
+#### 2. Run the container
 
-La documentación completa de la API está disponible en:
+```bash
+docker run -d -p 8000:8000 --name imagineapps-api imagineapps-backend
+```
 
-- **Swagger UI**: `/docs`
-- **ReDoc**: `/redoc`
+### Environment Variables
 
-## Contribuir
+For production deployment, ensure you set appropriate environment variables for:
 
-1. Hacer fork del proyecto
-2. Crear una rama para tu característica (`git checkout -b feature/amazing-feature`)
-3. Confirmar cambios (`git commit -m 'Add some amazing feature'`)
-4. Subir la rama (`git push origin feature/amazing-feature`)
-5. Abrir un Pull Request
+- Database connection
+- JWT secret key
+- Logging configuration
+- CORS settings
 
-## Licencia
+## 📚 API Documentation
 
-Distribuido bajo la licencia MIT. Ver `LICENSE` para más información.
+Complete API documentation is available at:
 
-## Contacto
+- **Swagger UI**: `/docs` - Interactive API documentation
+- **ReDoc**: `/redoc` - Alternative documentation interface
 
-Tu Nombre - [@tu_twitter](https://twitter.com/tu_twitter) - email@example.com
+## 🤝 Contributing
 
-Enlace del proyecto: [https://github.com/tu-usuario/fast-api](https://github.com/tu-usuario/fast-api)
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## 📞 Contact
+
+Your Name - [@your_twitter](https://twitter.com/your_twitter) - your.email@example.com
+
+Project Link: [https://github.com/yourusername/imagineapps-backend](https://github.com/yourusername/imagineapps-backend)
+
+---
+
+<div align="center">
+
+**Built with ❤️ by the ImagineApps Team**
+
+</div>
