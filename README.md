@@ -53,11 +53,13 @@ python -m venv venv
 ### 3. Activate the virtual environment
 
 **Windows:**
+
 ```bash
 .\venv\Scripts\activate
 ```
 
 **macOS/Linux:**
+
 ```bash
 source venv/bin/activate
 ```
@@ -80,6 +82,41 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
 A sample configuration file is provided in `.env.example`.
+
+## 🌱 Database Seeders
+
+The application includes seeders to populate the database with initial data. These follow clean code principles and are organized in a modular structure.
+
+### Available Seeders
+
+- **Category Seeder**: Populates the database with three predefined categories:
+  - Tecnología (Technology)
+  - Artes (Arts)
+  - Política (Politics)
+
+### How to Run Seeders
+
+You can run the seeders using the following commands:
+
+```bash
+# Option 1: Run a specific seeder (e.g. category seeder)
+python -m app.seeders.category_seeder
+
+# Option 2: Run all seeders at once
+python -m app.seeders.run_all_seeders
+```
+
+### When to Run Seeders
+
+Run the seeders after setting up your database and running migrations, but before starting to use the application. This ensures your application has the necessary initial data.
+
+### Custom Seeders
+
+To create additional seeders, follow the pattern established in the existing ones:
+
+1. Create a new file in the `app/seeders/` directory
+2. Implement a seeder class with appropriate methods
+3. Add the seeder to `run_all_seeders.py`
 
 ## 🏃‍♂️ Running the Application
 
