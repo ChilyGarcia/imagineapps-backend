@@ -160,20 +160,6 @@ imagineapps-backend/
 └── README.md               # This file
 ```
 
-## 🧪 Testing
-
-Run the test suite with:
-
-```bash
-pytest
-```
-
-Run tests with coverage reports:
-
-```bash
-pytest --cov=app tests/
-```
-
 ## 🐳 Deployment
 
 ### Using Docker
@@ -218,16 +204,4 @@ Complete API documentation is available at:
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-## 📞 Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_twitter) - your.email@example.com
-
-Project Link: [https://github.com/yourusername/imagineapps-backend](https://github.com/yourusername/imagineapps-backend)
-
----
-
-<div align="center">
-
-**Built with ❤️ by the ImagineApps Team**
-
-</div>
