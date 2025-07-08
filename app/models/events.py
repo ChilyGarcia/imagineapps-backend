@@ -11,6 +11,8 @@ class Event(Base):
     description = Column(String)
     start_date = Column(DateTime)
     end_date = Column(DateTime)
+    start_time = Column(DateTime)
+    prize = Column(String)
     location = Column(String)
     category_id = Column(Integer, ForeignKey("categories.id"))
     user_id = Column(Integer, ForeignKey("users.id"))

@@ -7,6 +7,9 @@ from app.db.session import SessionLocal
 from app.dependencies.auth import get_current_user
 from app.models.user import User
 from app.schemas.events import EventCreate
+from datetime import datetime, timedelta
+from enum import Enum
+from typing import Optional
 
 router = APIRouter()
 
@@ -54,12 +57,78 @@ def create_event(
         )
 
 
+class TimeFilter(str, Enum):
+    today = "today"
+    week = "week"
+    month = "month"
+    year = "year"
+
+
 @router.get("/", response_model=list[Event])
 def get_events(
+    category_id: Optional[int] = None,
+    time_filter: Optional[TimeFilter] = None,
+    date: Optional[str] = None,
     db: Session = Depends(get_db),
 ):
+
     try:
-        events = db.query(EventModel).all()
+        query = db.query(EventModel)
+
+        if category_id is not None:
+            query = query.filter(EventModel.category_id == category_id)
+
+        if date is not None:
+            try:
+                specific_date = datetime.strptime(date, "%Y-%m-%d").replace(
+                    hour=0, minute=0, second=0, microsecond=0
+                )
+                next_day = specific_date + timedelta(days=1)
+                query = query.filter(
+                    EventModel.start_date >= specific_date,
+                    EventModel.start_date < next_day,
+                )
+            except ValueError:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Invalid date format. Use YYYY-MM-DD",
+                )
+
+        elif time_filter:
+            today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+
+            if time_filter == TimeFilter.today:
+                tomorrow = today + timedelta(days=1)
+                query = query.filter(
+                    EventModel.start_date >= today, EventModel.start_date < tomorrow
+                )
+            elif time_filter == TimeFilter.week:
+                monday = today - timedelta(days=today.weekday())
+                next_monday = monday + timedelta(days=7)
+                query = query.filter(
+                    EventModel.start_date >= monday, EventModel.start_date < next_monday
+                )
+            elif time_filter == TimeFilter.month:
+                start_of_month = today.replace(day=1)
+                if today.month == 12:
+                    start_of_next_month = today.replace(
+                        year=today.year + 1, month=1, day=1
+                    )
+                else:
+                    start_of_next_month = today.replace(month=today.month + 1, day=1)
+                query = query.filter(
+                    EventModel.start_date >= start_of_month,
+                    EventModel.start_date < start_of_next_month,
+                )
+            elif time_filter == TimeFilter.year:
+                start_of_year = today.replace(month=1, day=1)
+                start_of_next_year = today.replace(year=today.year + 1, month=1, day=1)
+                query = query.filter(
+                    EventModel.start_date >= start_of_year,
+                    EventModel.start_date < start_of_next_year,
+                )
+
+        events = query.all()
         return events
     except Exception as e:
         print(f"Error getting events: {str(e)}")

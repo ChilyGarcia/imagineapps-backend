@@ -2,6 +2,8 @@ from pydantic import BaseModel
 from datetime import datetime
 
 
+from typing import Optional
+
 class EventBase(BaseModel):
     name: str
     description: str
@@ -10,6 +12,8 @@ class EventBase(BaseModel):
     location: str
     category_id: int
     user_id: int
+    start_time: Optional[datetime] = None
+    prize: Optional[str] = None
 
 
 class EventCreate(EventBase):
