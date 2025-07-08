@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from app.core import exception_handlers
 from app.db.base import Base
 
@@ -19,6 +20,15 @@ app = FastAPI(
         "clientId": "",
         "clientSecret": "",
     },
+)
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.add_exception_handler(HTTPException, exception_handlers.http_exception_handler)

@@ -1,15 +1,14 @@
 from app.models.category import Category
 from app.models.events import Event as EventModel
-from app.schemas.events import Event, EventUpdate
+from app.schemas.events import Event, EventResponse, EventCreate, EventUpdate
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.db.session import SessionLocal
 from app.dependencies.auth import get_current_user
 from app.models.user import User
-from app.schemas.events import EventCreate
 from datetime import datetime, timedelta
 from enum import Enum
-from typing import Optional
+from typing import Optional, List
 
 router = APIRouter()
 
@@ -64,7 +63,7 @@ class TimeFilter(str, Enum):
     year = "year"
 
 
-@router.get("/", response_model=list[Event])
+@router.get("/", response_model=list[EventResponse])
 def get_events(
     category_id: Optional[int] = None,
     time_filter: Optional[TimeFilter] = None,
@@ -138,7 +137,7 @@ def get_events(
         )
 
 
-@router.get("/{event_id}", response_model=Event)
+@router.get("/{event_id}", response_model=EventResponse)
 def get_event(
     event_id: int,
     db: Session = Depends(get_db),
