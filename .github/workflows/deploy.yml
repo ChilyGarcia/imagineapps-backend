@@ -30,6 +30,8 @@ jobs:
         
     - name: Run Alembic migrations
       run: alembic upgrade head
+      env:
+        DATABASE_URL: sqlite:///./data/app.db
       
     - name: Run tests
       run: |
