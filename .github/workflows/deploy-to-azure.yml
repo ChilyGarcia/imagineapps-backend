@@ -1,20 +1,11 @@
 name: Deploy to Azure
 
 on:
-  workflow_dispatch:  # Permite activación manual
-  # También puedes activarlo después de un push exitoso al branch principal
-  # workflow_run:
-  #   workflows: ["Build and Test FastAPI App"]
-  #   branches: [main, master]
-  #   types:
-  #     - completed
+  workflow_dispatch:  
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # Solo continuar si el workflow anterior tuvo éxito
-    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
